@@ -1,8 +1,8 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -16,6 +16,8 @@ export default function LoginPage() {
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
 
+  const router = useRouter()
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
@@ -28,11 +30,13 @@ export default function LoginPage() {
       return
     }
 
-    // Mock authentication logic
     setTimeout(() => {
-      if (email === "test@example.com" && password === "password") {
-        alert("Logged In")
-        setIsLoading(false)
+      if (email === "patient@test.com") {
+        router.push("/dashboard/patient")
+      } else if (email === "doctor@test.com") {
+        router.push("/doctor/add-record")
+      } else if (email === "admin@test.com") {
+        router.push("/admin/schedule-manager")
       } else {
         setError("Invalid Credentials")
         setIsLoading(false)

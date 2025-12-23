@@ -1,9 +1,10 @@
 "use client"
-import { Home, Calendar, User } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { Home, Calendar, User, LogOut } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
 
 export function MobileBottomNav() {
   const pathname = usePathname()
+  const router = useRouter()
 
   const navItems = [
     { icon: Home, label: "Home", href: "/dashboard/patient" },
@@ -19,18 +20,25 @@ export function MobileBottomNav() {
             const Icon = item.icon
             const isActive = pathname === item.href
             return (
-              <a
+              <button
                 key={item.href}
-                href={item.href}
+                onClick={() => router.push(item.href)}
                 className={`flex flex-col items-center justify-center px-6 py-2 transition-colors ${
                   isActive ? "text-[#0ea5e9]" : "text-slate-500 hover:text-slate-700"
                 }`}
               >
                 <Icon className={`w-6 h-6 mb-1 ${isActive ? "fill-[#0ea5e9]/20" : ""}`} />
                 <span className="text-xs font-medium">{item.label}</span>
-              </a>
+              </button>
             )
           })}
+          <button
+            onClick={() => router.push("/")}
+            className="flex flex-col items-center justify-center px-6 py-2 transition-colors text-red-500 hover:text-red-700"
+          >
+            <LogOut className="w-6 h-6 mb-1" />
+            <span className="text-xs font-medium">Logout</span>
+          </button>
         </div>
       </div>
     </nav>

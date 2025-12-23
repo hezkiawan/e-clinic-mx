@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Calendar, Video, Clock, Stethoscope, Heart } from "lucide-react"
@@ -64,12 +65,14 @@ const mockMedicalHistory = [
 export default function PatientDashboard() {
   const [patientName] = useState("John Smith")
 
+  const router = useRouter()
+
   const handleJoinTelemedicine = (appointmentId: number) => {
-    alert(`Joining telemedicine session for appointment #${appointmentId}`)
+    router.push("/telemedicine")
   }
 
   const handleBookAppointment = () => {
-    window.location.href = "/book-appointment"
+    router.push("/book-appointment")
   }
 
   return (

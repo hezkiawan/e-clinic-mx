@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Heart, Calendar, Clock, CheckCircle, ArrowLeft } from "lucide-react"
@@ -54,6 +55,8 @@ export default function BookAppointment() {
   const [selectedDate, setSelectedDate] = useState<string>("")
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(null)
 
+  const router = useRouter()
+
   const handleConfirmBooking = () => {
     if (!selectedDoctor || !selectedDate || !selectedTimeSlot) {
       alert("Please fill in all fields to confirm your booking")
@@ -64,6 +67,11 @@ export default function BookAppointment() {
     alert(
       `Appointment Confirmed!\n\nDoctor: ${doctor?.name}\nDate: ${selectedDate}\nTime: ${selectedTimeSlot}\n\nYou will receive a confirmation email shortly.`,
     )
+
+    // Navigate back after 1 second
+    setTimeout(() => {
+      router.push("/dashboard/patient")
+    }, 1000)
   }
 
   return (
@@ -73,9 +81,9 @@ export default function BookAppointment() {
         {/* Mobile Header */}
         <header className="bg-white border-b border-slate-200 px-4 py-4 sticky top-0 z-10">
           <div className="flex items-center gap-3">
-            <a href="/dashboard/patient" className="text-slate-600">
+            <button onClick={() => router.push("/dashboard/patient")} className="text-slate-600">
               <ArrowLeft className="w-6 h-6" />
-            </a>
+            </button>
             <div className="flex items-center gap-2 flex-1">
               <div className="flex items-center justify-center w-10 h-10 bg-[#0ea5e9] rounded-lg">
                 <Heart className="w-5 h-5 text-white fill-white" />

@@ -1,8 +1,9 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Calendar, Clock, Edit, AlertTriangle, CheckCircle, X, User } from "lucide-react"
+import { Calendar, Clock, Edit, AlertTriangle, CheckCircle, X, User, LogOut } from "lucide-react"
 import { DesktopSidebar } from "@/components/desktop-sidebar"
 
 // Mock doctors data
@@ -65,6 +66,8 @@ export default function DoctorScheduleManager() {
   const [updateStartTime, setUpdateStartTime] = useState("")
   const [updateEndTime, setUpdateEndTime] = useState("")
 
+  const router = useRouter()
+
   const currentDoctor = mockDoctors.find((doc) => doc.id === selectedDoctor)
   const currentSchedule = mockSchedules[selectedDoctor] || []
 
@@ -103,6 +106,14 @@ export default function DoctorScheduleManager() {
                 <User className="w-4 h-4 text-slate-600" />
                 <span className="text-sm font-medium text-slate-700">Admin User</span>
               </div>
+              <Button
+                onClick={() => router.push("/")}
+                variant="outline"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
             </div>
           </div>
         </header>

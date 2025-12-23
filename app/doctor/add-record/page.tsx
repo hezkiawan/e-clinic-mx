@@ -1,8 +1,9 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { User, FileText, Pill, StickyNote, AlertCircle, CheckCircle } from "lucide-react"
+import { User, FileText, Pill, StickyNote, AlertCircle, CheckCircle, LogOut } from "lucide-react"
 import { DesktopSidebar } from "@/components/desktop-sidebar"
 
 // Mock patient data
@@ -19,6 +20,8 @@ export default function AddMedicalRecord() {
   const [notes, setNotes] = useState("")
   const [errors, setErrors] = useState({ diagnosis: false })
   const [showSuccess, setShowSuccess] = useState(false)
+
+  const router = useRouter()
 
   const handleSaveRecord = () => {
     if (!diagnosis.trim()) {
@@ -55,6 +58,14 @@ export default function AddMedicalRecord() {
                 <User className="w-4 h-4 text-slate-600" />
                 <span className="text-sm font-medium text-slate-700">Dr. Sarah Johnson</span>
               </div>
+              <Button
+                onClick={() => router.push("/")}
+                variant="outline"
+                className="border-slate-300 text-slate-700 hover:bg-slate-50"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logout
+              </Button>
             </div>
           </div>
         </header>

@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Mic, MicOff, Video, VideoOff, PhoneOff, Heart, User, Activity } from "lucide-react"
@@ -19,11 +20,14 @@ export default function TelemedicineRoom() {
   const [callDuration] = useState("05:23")
   const [userType] = useState<"patient" | "doctor">("patient") // Mock: change to "doctor" to see doctor view
 
+  const router = useRouter()
+
   const handleToggleMic = () => setIsMicOn(!isMicOn)
   const handleToggleVideo = () => setIsVideoOn(!isVideoOn)
+
   const handleEndCall = () => {
     if (confirm("Are you sure you want to end this call?")) {
-      alert("Call ended. Redirecting to dashboard...")
+      router.push("/dashboard/patient")
     }
   }
 
